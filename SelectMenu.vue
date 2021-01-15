@@ -2,19 +2,19 @@
   <div class="select-menu">
     <div v-for="(item, index) in selectMenuData" :key="index">
         <div class="select-item" @click="checkedFun(item.textObj)" ref="selectItem">
-          <span class="select-img" @click.prevent.stop="selectClickFun(item, $refs.selectItem[index].nextElementSibling)">
+          <span class="select-img" @click.prevent.stop="selectClickFun(item)">
             <img v-if="item.offShow" width="100%"  src="@/assets/img/jia.png" alt="">
             <img v-else width="100%" src="@/assets/img/jian.png" alt="">
           </span>
           <span>{{item.textObj | cityNameFilter}}</span>
         </div>
         <template v-if="item.children">
-          <div v-if="item.children.length" class="select-child">
+          <div :class="{'select-menu-close': item.offShow}" v-if="item.children.length" class="select-child">
               <select-menu @checkSelectEmit="selectClickFun" @checkEmit="checkedFun" :selectMenuData="item.children"></select-menu>
           </div>
-          <div v-else class="select-child-empty"  @click.prevent.stop="()=>false">
+          <!-- <div v-else class="select-child-empty"  @click.prevent.stop="()=>false">
             -- 暂无数据 --
-          </div>
+          </div> -->
         </template>
     </div>
   </div>
@@ -35,8 +35,8 @@ export default {
     checkedFun (val) {
       this.$emit('checkEmit', val)
     },
-    selectClickFun (val, e) {
-      this.$emit('checkSelectEmit', val, e)
+    selectClickFun (val) {
+      this.$emit('checkSelectEmit', val)
     }
   }
 }
