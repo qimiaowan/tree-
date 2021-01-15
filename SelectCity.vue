@@ -21,7 +21,7 @@ export default {
   props: {
     selectName: {
       type: String,
-      default: () => '苏州分行'
+      default: () => '分行'
     }
   },
   methods: {
